@@ -1,0 +1,96 @@
+div,button{
+    border:none;
+    outline: none;
+}
+.vlcBox{
+    width: 520px;
+    height: 50px;
+    border:1px solid #a2c3c7;
+    border-radius: 10px;
+    background: -webkit-linear-gradient(top, #edfcff 0%,#cfe0e6 100%);
+    background: -o-linear-gradient(top, #edfcff 0%,#cfe0e6 100%);
+    background: -ms-linear-gradient(top, #edfcff 0%,#cfe0e6 100%);
+    background: linear-gradient(to bottom, #edfcff 0%,#cfe0e6 100%);
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    align-items:center;
+}
+.play{
+    width: 28px;
+    height: 28px;
+    background:url(img/play-1.png) no-repeat center center;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.play:hover{
+    background:url(img/play-2.png) no-repeat center center;
+}
+.Pause{
+    width: 28px;
+    height: 28px;
+    background:url(img/pause-1.png) no-repeat center center;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.Pause:hover{
+    background:url(img/pause-2.png) no-repeat center center;
+}
+.stop{
+    width: 22px;
+    height: 22px;
+    background: url(img/stop-1.png) no-repeat center center;
+    cursor: pointer;
+    margin-left:10px;
+}
+.stop:hover{
+    background: url(img/stop-2.png) no-repeat center center;
+}
+.jdtbg{
+    width: 200px;
+    height: 6px;
+    background: url(img/jdt-back.png) no-repeat center center;
+    cursor: pointer;
+    margin-left:10px;
+    border-radius: 3px;
+}
+.jdt{
+    width: 0px;
+    height: 6px;
+    background: url(img/jdt.png) repeat-x center center;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.time{
+    color:#7f8182;
+    font-size:12px;
+    margin-left:10px;
+}
+.Nomute{
+    width: 16px;
+    height: 16px;
+    background: url(img/cM2yFa1f.png) no-repeat center center;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.mute{
+    width: 16px;
+    height: 16px;
+    background: url(img/1hQVsZPs.png) no-repeat center center;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.volbg{
+    width: 73px;
+    height: 3px;
+    background: url(img/volume_backgrond.png) no-repeat center center;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-left:10px;
+}
+.vol{
+    width: 40px;
+    height: 3px;
+    background: url(img/volume_backgrond-jdt.png) repeat-x center center;
+    cursor: pointer;
+    border-radius: 3px;
+}

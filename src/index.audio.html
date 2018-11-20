@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <script src="http://lib.baomitu.com/jquery/1.12.4/jquery.js"></script>
+  </head>
+
+  <body>
+    <div>
+      <!--[if IE]>
+        <object
+          type="application/x-vlc-plugin"
+          id="vlc"
+          events="True"
+          classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+          codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab"
+          width="720"
+          height="450"
+        >
+          <param name="mrl" value="mp3/wlw.wmv" />
+          <param name="volume" value="50" />
+          <param name="autoplay" value="true" />
+          <param name="loop" value="false" />
+          <param name="fullscreen" value="false" />
+        </object>
+      <![endif]-->
+      <!-- [if !IE]><! -->
+      <object
+        type="application/x-vlc-plugin"
+        id="vlc"
+        events="false"
+        width="720"
+        height="450"
+        pluginspage="http://www.videolan.org"
+        codebase="http://downloads.videolan.org/pub/videolan/vlc-webplugins/2.0.6/npapi-vlc-2.0.6.tar.xz"
+      >
+        <param name="mrl" value="mp3/wlw.wmv" />
+        <param name="volume" value="50" />
+        <param name="autoplay" value="false" />
+        <param name="loop" value="false" />
+        <param name="fullscreen" value="false" />
+      </object>
+    </div>
+    <!-- <![endif] -->
+    <div id="controls" style="border:1px solid red;position: fixed;bottom: 0;">
+      <input type="button" onclick="play();" value="Play" />
+      <input type="button" onclick="pause();" value="Pause" />
+      <input type="button" onclick="stop();" value="Stop" />
+      <input type="button" onclick="mute();" value="Mute" />
+      <input type="button" onclick="up();" value="up" />
+      <input type="button" onclick="ttt()" value="tt">
+      <input type="button" onclick="time()" value="time">
+      <input type="button" onclick="yg()" value="yp">
+    </div>
+    <script type="text/javascript" language="javascript">
+      var vlc = document.getElementById("vlc");
+      
+      function player(vid) {
+        try {
+          var options = new Array(
+            ":aspect-ratio=16:10",
+            "--rtsp-tcp",
+            ":no-video-title-show"
+          );
+          var id = vlc.playlist.add(vid, "Video", options);
+          vlc.playlist.playItem(id);
+          vlc.video.fullscreen = true;
+        } catch (ex) {
+          alert(ex);
+        }
+      }
+      function yg(){//音轨长度控制
+        var c = vlc.input.time
+        c = c + 10000
+        vlc.input.time = c;
+      }
+      function time(){
+        var b = vlc.input.time//音频长度默认为-1毫秒
+        b = b/1000;
+        alert(b)
+      }
+      function ttt(){
+        var a = vlc.input.length;//音频总长度默认为-1毫秒
+        a = a/1000
+        alert(a);
+      }
+      function mute() {
+        vlc.audio.toggleMute();
+      }
+
+      function play() {
+        vlc.playlist.play();
+      }
+
+      function stop() {
+        vlc.playlist.stop();
+      }
+
+      function pause() {
+        vlc.playlist.togglePause();
+      }
+
+      function fullscreen() {
+        vlc.video.toggleFullscreen();
+      }
+
+      function up() {
+        vlc.audio.volume = 100; //音量的进度条
+      }
+    </script>
+  </body>
+</html>

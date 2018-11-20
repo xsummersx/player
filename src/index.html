@@ -3,29 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <title>Insert title here</title>
+    <link rel="stylesheet" href="aud_css/vlc-audio.css" />
     <script src="http://lib.baomitu.com/jquery/1.12.4/jquery.js"></script>
   </head>
 
   <body>
     <div>
-      <!--[if IE]>
-        <object
-          type="application/x-vlc-plugin"
-          id="vlc"
-          events="True"
-          classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
-          codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab"
-          width="720"
-          height="450"
-        >
-          <param name="mrl" value="mp3/wlw.wmv" />
-          <param name="volume" value="50" />
-          <param name="autoplay" value="true" />
-          <param name="loop" value="false" />
-          <param name="fullscreen" value="false" />
-        </object>
-      <![endif]-->
-      <!-- [if !IE]><! -->
       <object
         type="application/x-vlc-plugin"
         id="vlc"
@@ -43,51 +26,91 @@
       </object>
     </div>
     <!-- <![endif] -->
-    <div id="controls" style="border:1px solid red;position: fixed;bottom: 0;">
-      <input type="button" onclick="play();" value="Play" />
-      <input type="button" onclick="pause();" value="Pause" />
-      <input type="button" onclick="stop();" value="Stop" />
-      <input type="button" onclick="mute();" value="Mute" />
-      <input type="button" onclick="up();" value="up" />
+    <div class="vlcBox" style="position: fixed;bottom: 10px;right: 10px">
+      <button id="play" class="play" onclick="play()"></button>
+      <button class="stop" onclick="stop()"></button>
+      <!-- <button class="left"></button> -->
+      <div class="jdtbg"><div class="jdt"></div></div>
+      <!-- <button class="right"></button> -->
+      <div class="time">
+        <span id="StartTime">0:00:00</span><span>/</span>
+        <span id="EndTime">0:00:00</span>
+      </div>
+      <button class="Nomute" onclick="yg()"></button>
+      <!-- <button class="down"></button> -->
+      <div class="volbg"><div class="vol"></div></div>
+      <!-- <button class="up"></button> -->
     </div>
-    <script type="text/javascript" language="javascript">
+    <script type="text/javascript">
       var vlc = document.getElementById("vlc");
-      function player(vid) {
-        try {
-          var options = new Array(
-            ":aspect-ratio=16:10",
-            "--rtsp-tcp",
-            ":no-video-title-show"
-          );
-          var id = vlc.playlist.add(vid, "Video", options);
-          vlc.playlist.playItem(id);
-          vlc.video.fullscreen = true;
-        } catch (ex) {
-          alert(ex);
+      var playFlag = 0; //音频状态
+      var eT;//定时器
+      var sT; //定时器
+      function play() {
+        if (playFlag == 0) {
+          //判断状态
+          vlc.playlist.play(); //音频播放
+          //var EndTime = dateFtt(vlc.input.length); //音频总长度
+          //$("#EndTime").html(EndTime);
+          jdt(); //进度条动起来
+          playFlag = 1; //状态改变
+          $("#play").removeClass("play"); //改变样式
+          $("#play").addClass("Pause"); //改变样式
+        } else if (playFlag == 1) {
+          //判断状态
+          vlc.playlist.togglePause(); //音频暂停
+          rmjdt(); //进度条暂停
+          playFlag = 0;
+          $("#play").removeClass("Pause");
+          $("#play").addClass("play");
         }
       }
-      function mute() {
-        vlc.audio.toggleMute();
-      }
-
-      function play() {
-        vlc.playlist.play();
-      }
-
       function stop() {
+        //重新播放
         vlc.playlist.stop();
+        rmjdt();
+        playFlag = 0;
+        $("#play").removeClass("Pause");
+        $("#play").addClass("play");
+        $("#StartTime").html('0:00:00');
+        $(".jdt").css({"width":'0px'});
       }
-
-      function pause() {
-        vlc.playlist.togglePause();
+      function jdt() {
+        //起一个定时器
+        eT = window.setTimeout(function(){
+          var EndTime = dateFtt(vlc.input.length); //音频总长度
+          $("#EndTime").html(EndTime);
+        },100);
+        sT = window.setInterval(function() {
+          var StartTime = dateFtt(vlc.input.time);
+          $("#StartTime").html(StartTime);
+          var x = (vlc.input.time / vlc.input.length)*200;
+          $(".jdt").css({"width":x+'px'});
+          console.log(vlc.input.time+"   "+vlc.input.length)
+          if(vlc.input.time >= vlc.input.length-100){
+            stop();
+          }
+        }, 10);
       }
-
-      function fullscreen() {
-        vlc.video.toggleFullscreen();
+      function rmjdt() {
+        //关闭一个定时器
+        window.setTimeout(eT);
+        window.clearInterval(sT);
       }
-
-      function up() {
-        vlc.audio.volume = 100; //音量的进度条
+      function dateFtt(fmt) { //时间格式化
+        var d=new Date(fmt);
+        var hour=change(d.getHours())-8;
+        var minute=change(d.getMinutes());
+        var second=change(d.getSeconds());
+        function change(t){
+          if(t<10){
+          return "0"+t;
+          }else{
+          return t;
+          }
+        }
+        var time=hour+':'+minute+':'+second;
+        return time
       }
     </script>
   </body>
