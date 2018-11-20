@@ -33,17 +33,19 @@
       <div class="jdtbg"><div class="jdt"></div></div>
       <!-- <button class="right"></button> -->
       <div class="time">
-        <span id="StartTime">0:00:00</span><span>/</span>
-        <span id="EndTime">0:00:00</span>
+        <span id="StartTime">00:00</span><span>/</span>
+        <span id="EndTime">00:00</span>
       </div>
-      <button class="Nomute" onclick="yg()"></button>
+      <button id="ismute" class="Nomute" onclick="mute()"></button>
       <!-- <button class="down"></button> -->
       <div class="volbg"><div class="vol"></div></div>
       <!-- <button class="up"></button> -->
     </div>
     <script type="text/javascript">
       var vlc = document.getElementById("vlc");
+      vlc.audio.volume = 50//默认音量为50；
       var playFlag = 0; //音频状态
+      var velFlag = 0;//是否静音状态
       var eT;//定时器
       var sT; //定时器
       function play() {
@@ -72,10 +74,10 @@
         playFlag = 0;
         $("#play").removeClass("Pause");
         $("#play").addClass("play");
-        $("#StartTime").html('0:00:00');
+        $("#StartTime").html('00:00');
         $(".jdt").css({"width":'0px'});
       }
-      function jdt() {
+      function jdt() {//进度条
         //起一个定时器
         eT = window.setTimeout(function(){
           var EndTime = dateFtt(vlc.input.length); //音频总长度
@@ -92,14 +94,28 @@
           }
         }, 10);
       }
-      function rmjdt() {
+      function rmjdt() {//暂停进度条
         //关闭一个定时器
         window.setTimeout(eT);
         window.clearInterval(sT);
       }
+      function mute(){
+        if(velFlag == 0){
+          vlc.audio.volume = 0;
+          $("#ismute").removeClass("Nomute");//喇叭的样式
+          $("#ismute").addClass("mute");//喇叭的样式
+          $(".vol").css({"width":"0px"})//音频的蓝色进度条
+          velFlag = 1;
+        }else if(velFlag == 1){
+          vlc.audio.volume = 50;
+          $("#ismute").removeClass("mute");
+          $("#ismute").addClass("Nomute");
+          velFlag = 0;
+          $(".vol").css({"width":"37px"})//音频的蓝色进度条
+        }
+      }
       function dateFtt(fmt) { //时间格式化
         var d=new Date(fmt);
-        var hour=change(d.getHours())-8;
         var minute=change(d.getMinutes());
         var second=change(d.getSeconds());
         function change(t){
@@ -109,7 +125,7 @@
           return t;
           }
         }
-        var time=hour+':'+minute+':'+second;
+        var time=minute+':'+second;
         return time
       }
     </script>

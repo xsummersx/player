@@ -3,7 +3,7 @@ div,button{
     outline: none;
 }
 .vlcBox{
-    width: 520px;
+    width: 480px;
     height: 50px;
     border:1px solid #a2c3c7;
     border-radius: 10px;
@@ -88,7 +88,7 @@ div,button{
     margin-left:10px;
 }
 .vol{
-    width: 40px;
+    width: 37px;
     height: 3px;
     background: url(img/volume_backgrond-jdt.png) repeat-x center center;
     cursor: pointer;
