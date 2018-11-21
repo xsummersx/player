@@ -1,0 +1,252 @@
+﻿
+.LgKyJplayer {
+    display: none;
+}
+
+.LgKyMediaPlayerDis {
+    width: 98%;
+    height: 80%;
+    margin: auto;
+    font: normal 14px "微软雅黑", Arial, Helvetica, sans-serif;
+    overflow-y: auto;
+}
+
+.LgKyMediaPlayerCtl {
+    width: 100%;
+    height: 20%;
+    min-height: 70px;
+    min-width: 310px;
+}
+
+.LgKycls_ItemAnsCtlPanel_right {
+    width: auto;
+    height: 20px;
+    float: right;
+    margin-right: 20px;
+    margin-top: 0px;
+}
+
+.LgKycls_DisYuanWen {
+    color: #fff;
+}
+/*------------------播放进度条样式-------------*/
+.LgKycls_controlbar {
+    height: 100%;
+    background-color: #454b4d;
+    width: 100%;
+}
+
+.LgKytop-panel {
+    height: 20px;
+    width: 100%;
+}
+
+.LgKypane {
+    height: 100%;
+    width: 100%;
+}
+/*进度条*/
+.LgKyprogress-wrapper {
+    position: relative;
+    width: 100%;
+    height: 5px;
+    margin: 0px auto;
+    /*top: 0px;*/
+    cursor: pointer;
+}
+
+    .LgKyprogress-wrapper .LgKyslider-wrapper-x {
+        z-index: 30;
+        position: absolute;
+        margin: -9px 0px 0px -9px;
+        outline-style: none;
+        outline-color: invert;
+        outline-width: medium;
+        /*width: 18px;*/
+        display: block;
+        /*background: url(Images/kuai.png);*/
+        background:url(Images/progress-static.png) no-repeat;
+        width:26px;
+        height:26px;
+        /*height: 18px;*/
+        font-size: 1px;
+        top: 0px;
+        cursor: pointer;
+        left: 0px;
+    }
+
+        .LgKyprogress-wrapper .LgKyslider-wrapper-x:hover {
+            background:url(Images/progress-hover.png) no-repeat;
+        }
+
+    .LgKyprogress-wrapper .LgKyui-slider-range {
+        width: 0;
+        height: 5px;
+        position: absolute;
+        top: 0;
+        background-color: #268c19;
+        left: 0;
+        z-index: 20;
+        border: none;
+        font-size: 1px;
+    }
+
+    .LgKyprogress-wrapper .LgKyui-slider-progressbar {
+        background-color: #8f9496;
+        width: 100%;
+        height: 5px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        border: none;
+        font-size: 1px;
+    }
+
+/*播放作答录音控制按钮*/
+.LgKybot-panelX {
+    height: 50px;
+    width: 100%;
+    position:relative;
+}
+
+    .LgKybot-panelX .LgKyctl-btn {
+        height: 50px;
+        width: auto;
+        float: left;
+        /*padding-top: 5px;*/
+    }
+
+.LgKycls_PlayOrPauseAudio {
+    width: 59px;
+    height: 59px;
+    margin-top: 0px;
+    margin-left: 15px;
+    float: left;
+    color: White;
+    cursor: pointer;
+}
+
+.LgKycls_PlayOrPauseRecord {
+    width: 30px;
+    height: 30px;
+    margin-left: 15px;
+    margin-top: 5px;
+    float: left;
+    color: White;
+    cursor: pointer;
+}
+
+.LgKywg-buttonBeginRec {
+    width: 30px;
+    height: 30px;
+    margin-left: 32px;
+    margin-top: 5px;
+    float: left;
+    color: White;
+    cursor: pointer;
+}
+
+.LgKycls_Stop {
+    width: 40px;
+    height: 40px;
+    margin-left: 20px;
+    margin-top: 10px;
+    float: left;
+    color: White;
+    cursor: pointer;
+}
+
+/*播放事件显示样式*/
+.LgKycls_showProText
+{
+    white-space: nowrap;
+    font-family: "微软雅黑 Regular","微软雅黑";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    color: #ADBABF;
+    margin-left:44px;
+    margin-top:5px;
+    line-height:48px;
+    height:48px;
+    float:left;
+}
+
+
+/*音量设置样式*/
+.LgKybot-panelX .LgKyctl-volumeX {
+    position: relative;
+    height: auto;
+    width: auto;
+    float: right;
+    right: 30px;
+    margin-top: 20px;
+}
+
+.LgKyvolumeX {
+    position: relative;
+    width: auto;
+    height: 18px;
+    float: right;
+    top: 0px;
+    margin-top: 2px;
+    /*background:url(Images/volume.png) no-repeat;*/
+}
+
+    .LgKyvolumeX .LgKymute {
+        text-indent: -999px;
+        width: 16px;
+        display: block !important;
+        background-repeat: no-repeat;
+        float: left;
+        height: 16px;
+        background: url(Images/volume.png) no-repeat ;
+        cursor:pointer;
+    }
+
+        .LgKyvolumeX .LgKymute:hover {
+            filter: alpha(opacity=50);
+        }
+
+    .LgKyvolumeX .LgKyvol-slider-wrapper {
+        width: 75px;
+        margin-left: 32px;
+    }
+
+.LgKyvol-sliderX {
+    position: relative;
+    border-bottom-style: none;
+    border-right-style: none;
+    margin-top: 6px;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    /*background: url(Images/volume.png) no-repeat 0px -348px;*/
+    background:url(Images/volume_backgrond.png) no-repeat;
+    cursor:pointer;
+}
+
+    .LgKyvol-sliderX .LgKyui-slider-range {
+        position: absolute;
+        line-height: 3px;
+        background-color: #fff;
+        height: 3px;
+        font-size: 1px;
+        top: 0px;
+        left: 0px;
+        border-radius: 5px;
+        cursor:pointer;
+    }
+
+    .LgKyvol-sliderX .LgKyui-slider-handle {
+        position: absolute;
+        margin: -4px 0px 0px -7px;
+        outline-style: none;
+        width: 13px;
+        /*background: url(volume.png) no-repeat -264px -1008px;*/
+        background:url(Images/volume-bar.png) no-repeat 0px -1px;
+        height: 13px;
+        top: 0px;
+        left: 0px;
+    }

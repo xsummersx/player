@@ -9,35 +9,58 @@
     <script src="http://lib.baomitu.com/angular.js/1.7.5/angular.js"></script>
     <script src="http://lib.baomitu.com/angular.js/1.7.5/angular-sanitize.js"></script>
     <!-- jplayer音频插件css -->
-    <link href="aud/zh/myplayer/vlcPlayer.css" rel="stylesheet" />
+    <link href="aud/zh/myplayer/MPlayer.css" rel="stylesheet" />
+    <link rel="stylesheet" href="aud/med/JQuery.LgKyMediaPlayer.css" />
     <!-- Vlc音频插件css -->
     <!-- <link rel="stylesheet" href="aud//vlc/vlc-audio.css" /> -->
     <!-- jplayer音频播放器插件js -->
     <script src="aud/zh/BrowerInfo.gxhfx.js"></script>
     <script src="aud/zh/jquery.jplayer.min.js"></script>
-    <script src="aud/zh/myplayer/vlcPlayer.js"></script>
+    <script src="aud/zh/myplayer/MPlayer.js"></script>
+    <script src="aud/med/JQuery.LgKyMediaPlayer.js"></script>
   </head>
   <body>
     <div ng-app="app">
       <div ng-controller="ctrl" ng-init="page()">
-         <object
+        <!--
+          <object
+            type="application/x-vlc-plugin"
+            id="vlc"
+            events="false"
+            width="700"
+            height="400"
+            pluginspage="http://www.videolan.org"
+            codebase="http://downloads.videolan.org/pub/videolan/vlc-webplugins/2.0.6/npapi-vlc-2.0.6.tar.xz"
+          >
+            <param id="vlcmrl" name="mrl" value="" />
+            <param name="volume" value="50" />
+            <param name="autoplay" value="false" />
+            <param name="loop" value="false" />
+            <param name="fullscreen" value="false" />
+          </object>
+        -->
+        <object
           type="application/x-vlc-plugin"
-          id="vlc"
-          events="false"
-          width="700"
-          height="400"
-          pluginspage="http://www.videolan.org"
-          codebase="http://downloads.videolan.org/pub/videolan/vlc-webplugins/2.0.6/npapi-vlc-2.0.6.tar.xz"
+          id="pfvlc"
+          events="True"
+          classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+          class="vd-screen"
         >
-          <param id="vlcmrl" name="mrl" value="" />
-          <param name="volume" value="50" />
+          <param name="mrl" value="" /> <param name="volume" value="80" />
           <param name="autoplay" value="false" />
+          <param name="mute" value="true" />
           <param name="loop" value="false" />
+          <param name="toolbar" value="false" />
           <param name="fullscreen" value="false" />
         </object>
-        <div id="audio00"></div>
-        <div id="audio01"></div>
-        <div id="audio02"></div>
+        <div id="id_mediaPlayer_quesArticle0" class="dv-audio"></div>
+        <div id="id_mediaPlayer_quesArticle1" class="dv-audio"></div>
+        <div id="id_mediaPlayer_quesArticle2" class="dv-audio"></div>
+        <!--
+          <div id="audio00"></div>
+          <div id="audio01"></div>
+          <div id="audio02"></div>
+        -->
       </div>
     </div>
   </body>
@@ -158,19 +181,19 @@
         // if (isIE) {
         //   var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
         //   reIE.test(userAgent);
-          // var fIEVersion = parseFloat(RegExp["$1"]);
-          // if(fIEVersion == 7) {
-          //     alert("7");
-          // } else if(fIEVersion == 8) {
-          //     alert("8");
-          // } else if(fIEVersion == 9) {
-          //     alert("9");
-          // } else if(fIEVersion == 10) {
-          //     alert("10");
-          // } else {
-          //     alert("6");
-          // }
-          //是否是IE7 8 9 10版本
+        // var fIEVersion = parseFloat(RegExp["$1"]);
+        // if(fIEVersion == 7) {
+        //     alert("7");
+        // } else if(fIEVersion == 8) {
+        //     alert("8");
+        // } else if(fIEVersion == 9) {
+        //     alert("9");
+        // } else if(fIEVersion == 10) {
+        //     alert("10");
+        // } else {
+        //     alert("6");
+        // }
+        //是否是IE7 8 9 10版本
         //   isIE_flag = 1;
         // } else if (isEdge) {
         //   //是否是EDG浏览器
@@ -193,9 +216,9 @@
         //     addhtml();
         //   }
         // } else if (isIE_flag == 1 || isIE_flag ==0) {
-           initAudioPlay(0, 0);
-           initAudioPlay(0, 1);
-           initAudioPlay(0, 2);
+        InitAudioPlay(0);
+        InitAudioPlay(1);
+        InitAudioPlay(2);
         // }
       };
 
@@ -227,26 +250,144 @@
       //     "'></div></div>" +
       //     "</div>";
       // };
-      var initAudioPlay = function(typeIndex, quesIndex) {
-        var id = "#audio" + typeIndex + quesIndex;
-        if ($(id).children().length == 0) {
-          $(id)
+      // var initAudioPlay = function(typeIndex, quesIndex) {
+      //   var id = "#audio" + typeIndex + quesIndex;
+      //   if ($(id).children().length == 0) {
+      //     $(id)
+      //       .children()
+      //       .remove(); //删除原有节点的内容，再重新添加新的播放器
+      //     var options = {
+      //       PlayerName: "aboutplayer" + typeIndex + quesIndex,
+      //       FootDiv: "playPanelNew" + typeIndex + quesIndex,
+      //       sJplayerID: "#id_jplayer" + typeIndex + quesIndex,
+      //       nIndex: typeIndex.toString() + quesIndex.toString(),
+      //       PlayPath: $scope.x[quesIndex],
+      //       AppendId: id,
+      //       sJplayerDocument: "id_PlayControl" + typeIndex + quesIndex,
+      //       sImagePath: ""
+      //     };
+
+      //     $("#id_PlayControl" + typeIndex + quesIndex).MPlayer(options);
+      //     console.log($scope.x[quesIndex]);
+      //   }
+      // };
+      //初始化音频播放
+      var InitAudioPlay = function(CurrentIndex) {
+        var idStr = "#id_mediaPlayer_quesArticle" + CurrentIndex;
+
+        if ($(idStr).children().length == 0) {
+          //删除主节点下所有的子节点
+          $(idStr)
             .children()
-            .remove(); //删除原有节点的内容，再重新添加新的播放器
+            .remove();
+
           var options = {
-            PlayerName: "aboutplayer" + typeIndex + quesIndex,
-            FootDiv: "playPanelNew" + typeIndex + quesIndex,
-            sJplayerID: "#id_jplayer" + typeIndex + quesIndex,
-            nIndex: typeIndex.toString() + quesIndex.toString(),
-            PlayPath: $scope.x[quesIndex],
-            AppendId: id,
-            sJplayerDocument: "id_PlayControl" + typeIndex + quesIndex,
-            sImagePath: ""
+            PlayerName: "aboutplayer" + CurrentIndex,
+            FootDiv: "playPanelNew" + CurrentIndex,
+            sJplayerID: "#id_jplayer" + CurrentIndex,
+            nIndex: CurrentIndex,
+            PlayPath: $scope.x[CurrentIndex],
+            AppendId: idStr,
+            sJplayerDocument: "id_PlayControl" + CurrentIndex
           };
 
-          $("#id_PlayControl" + typeIndex + quesIndex).MPlayer(options);
-          console.log($scope.x[quesIndex]);
+          $("#id_PlayControl" + CurrentIndex).MPlayer(options);
         }
+      };
+
+      //初始化VLC视频播放器
+      var InitVLCPlayer = function() {
+        
+        $scope.VideoTime = null; //存放视频播放计时器
+        $scope.TitleTime = null; //字幕定时器
+        $scope.VideoPageArr = {
+          src: "", //资料路径
+          srcType: "", //资料类型
+          //totalTime: , //视频播放总时长
+          pDragFlag: false, //进度拖动
+          vDragFlag: false, //音量拖动
+          isPlaying: 0, //是否已经加载播放过
+          isFullScreen: false, //是否全屏
+          volume: 50, //音量默认为0.5
+          nowTime: 0 //当前播放时长
+        };
+        //var baseUrl = ZNBKXX_PersonalFavourite.GetBaseUrl().value;
+        $scope.VideoPageArr.src = ''
+          //baseUrl + "/" + $scope.PageInfo.ResDetail.VedioList[0].AudioPath;
+        $scope.VideoPageArr.srcType = GetFileBackName($scope.VideoPageArr.src);
+
+        var vlc = document.getElementById("pfvlc");
+        //if (typeof vlc.playlist == "undefined") {
+        //    $(".ErrorContent").html("请升级VLC至<a href='http://www.videolan.org/'>最新版</a>或使用其他浏览器学习！");
+        //    return;
+        //}
+        vlc.audio.mute = false; //设置vlc播放器的音量为非静音
+
+        //初始化vlc播放器中的点击事件
+        //浏览模式播放按钮点击事件
+        $(".vc-play")
+          .off("click")
+          .click(function() {
+            Func_Play_Event();
+            $(".vc-play").hide();
+          });
+        //浏览模式暂停按钮点击事件
+        $(".vc-pause")
+          .off("click")
+          .click(function() {
+            Func_Pause_Event();
+            $(".vc-play").show();
+          });
+        //浏览模式停止按钮点击事件
+        $(".vc-stop")
+          .off("click")
+          .click(function() {
+            Func_Stop_Event();
+          });
+        //静音按钮点击事件
+        $(".vc-mute")
+          .off("click")
+          .click(function() {
+            Func_Unmute_Event();
+          });
+        //取消静音按钮点击事件
+        $(".vc-unmute")
+          .off("click")
+          .click(function() {
+            Func_Mute_Event();
+          });
+        //进度条点击事件
+        $("#pfvc-process")
+          .off("click")
+          .click(function(e) {
+            Func_Process_Event(e);
+          });
+        //音量条点击事件
+        $("#pfvc-volume-bar")
+          .off("click")
+          .click(function(e) {
+            Func_Volume_Event(e);
+          });
+        //进度条/音量条拖动事件
+        Func_PVDrag_Event();
+        //增加全屏点击事件
+        $("#pffullscreen")
+          .off("click")
+          .click(function() {
+            Func_FullScreent_Event();
+          });
+        //如果是视文类的资源，增加字幕
+        // if ($scope.PageInfo.ResDetail.ResType == "6") {
+        //   //原文按钮点击事件
+        //   $("#pfshowsubtitle")
+        //     .off("click")
+        //     .click(function() {
+        //       Func_Subtitle_Event();
+        //     });
+        // }
+
+        //$('#pfvlcShadow').css({ 'display': 'block' });
+        //$('#pfvideoScreen').css({ 'visibility': 'hidden' });
       };
     });
   </script>
