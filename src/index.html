@@ -1,38 +1,254 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <title>Insert title here</title>
-    <link rel="stylesheet" href="aud//vlc/vlc-audio.css" />
-    <link rel="stylesheet" href="aud/jplayer/blue.css">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="http://lib.baomitu.com/jquery/1.12.4/jquery.js"></script>
-    
+    <script src="http://lib.baomitu.com/angular.js/1.7.5/angular.js"></script>
+    <script src="http://lib.baomitu.com/angular.js/1.7.5/angular-sanitize.js"></script>
+    <!-- jplayer音频插件css -->
+    <link href="aud/zh/myplayer/MPlayer.css" rel="stylesheet" />
+    <!-- Vlc音频插件css -->
+    <!-- <link rel="stylesheet" href="aud//vlc/vlc-audio.css" /> -->
+    <!-- jplayer音频播放器插件js -->
+    <script src="aud/zh/BrowerInfo.gxhfx.js"></script>
+    <script src="aud/zh/jquery.jplayer.min.js"></script>
+    <script src="aud/zh/myplayer/MPlayer.js"></script>
   </head>
   <body>
-      <object
-      type="application/x-vlc-plugin"
-      id="vlc"
-      events="false"
-      width="0"
-      height="0"
-      pluginspage="http://www.videolan.org"
-      codebase="http://downloads.videolan.org/pub/videolan/vlc-webplugins/2.0.6/npapi-vlc-2.0.6.tar.xz">
-      <param name="mrl" value="mp3/2018.mp3" />
-      <param name="volume" value="50" />
-      <param name="autoplay" value="false" />
-      <param name="loop" value="false" />
-      <param name="fullscreen" value="false" />
-    </object>
-    <div id="audio01">
+    <div ng-app="app">
+      <div ng-controller="ctrl" ng-init="page()">
+        <!-- <object
+          type="application/x-vlc-plugin"
+          id="vlc"
+          events="false"
+          width="700"
+          height="400"
+          pluginspage="http://www.videolan.org"
+          codebase="http://downloads.videolan.org/pub/videolan/vlc-webplugins/2.0.6/npapi-vlc-2.0.6.tar.xz"
+        >
+          <param id="vlcmrl" name="mrl" value="" />
+          <param name="volume" value="50" />
+          <param name="autoplay" value="false" />
+          <param name="loop" value="false" />
+          <param name="fullscreen" value="false" />
+        </object> -->
+        <div id="id_mediaPlayer_quesArticle" class="dv-audio"></div>
+        <div id="audio00"></div>
+        <div id="audio01"></div>
+        <div id="audio02"></div>
+      </div>
     </div>
-    <script src="aud/jplayer/jquery.jplayer.js"></script>
-    <script>
-        $(function(){
-          var url = 'mp3/2018.mp3'
-          var id = 'audio01'
-          ZnbkPlayer(url,id);
-        })
-        </script>
-    <script src="js/ZnbkPlayer.js"></script>
   </body>
+  <script>
+    // var vlc = document.getElementById("vlc");
+    // var velFlag = 0; //是否静音状态
+    // var mp3box = ["mp3/2018.mp3","mp3/error.wav","mp3/wlw.wmv"]
+    // var eT; //定时器
+    // var sT; //定时器
+    // function play(id) {
+    //   vlc.playlist.clear(); //清空播放列表
+    //   //alert(vlc.playlist.isPlaying); //当前音频是否播放
+    //   var mp3id =parseInt(id.replace("play0",""));
+    //   var sitem = vlc.playlist.add(mp3box[mp3id]); //插入播放的音频
+    //   //alert(vlc.playlist.itemCount); //当且播放列表的个数
+    //   if (vlc.playlist.isPlaying == false) {
+    //     $("#" + id).removeClass("play"); //改变样式
+    //     $("#" + id).addClass("Pause"); //改变样式
+    //     vlc.playlist.playItem(sitem);
+    //     //vlc.playlist.play(); //音频播放
+    //     //alert(vlc.playlist.isPlaying)//当前音频是否播放
+    //     //jdt(id); //进度条动起来
+    //    }else if (vlc.playlist.isPlaying == true) {
+    //     //判断状态
+    //     $("#" + id).removeClass("Pause");
+    //     $("#" + id).addClass("play");
+    //     vlc.playlist.togglePause(); //音频暂停
+    //     //rmjdt(); //进度条暂停
+    //    }
+    // }
+    // function stop(id) {
+    //   //重新播放
+    //   id = id.replace("stop", "");
+    //   vlc.playlist.stop();
+    //   rmjdt();
+    //   playFlag = 0;
+    //   $("#play" + id).removeClass("Pause");
+    //   $("#play" + id).addClass("play");
+    //   $("#StartTime" + id).html("00:00");
+    //   $(".jdt" + id).css({ width: "0px" });
+    // }
+    // function jdt(id) {
+    //   //进度条
+    //   //起一个定时器
+    //   id = id.replace("play", "");
+    //   eT = window.setTimeout(function() {
+    //     var EndTime = dateFtt(vlc.input.length); //音频总长度
+    //     $("#EndTime" + id).html(EndTime);
+    //   }, 100);
+    //   sT = window.setInterval(function() {
+    //     var StartTime = dateFtt(vlc.input.time);
+    //     $("#StartTime" + id).html(StartTime);
+    //     var x = (vlc.input.time / vlc.input.length) * 200;
+    //     $(".jdt" + id).css({ width: x + "px" });
+    //     if (vlc.input.time >= vlc.input.length - 100) {
+    //       //stop(id);
+    //     }
+    //   }, 10);
+    // }
+    // function rmjdt() {
+    //   //暂停进度条
+    //   //关闭一个定时器
+    //   window.setTimeout(eT);
+    //   window.clearInterval(sT);
+    // }
+    // function mute(id) {
+    //   id = id.replace("ismute", "");
+    //   if (velFlag == 0) {
+    //     vlc.audio.volume = 0;
+    //     $("#ismute" + id).removeClass("Nomute"); //喇叭的样式
+    //     $("#ismute" + id).addClass("mute"); //喇叭的样式
+    //     $(".vol" + id).css({ width: "0px" }); //音频的蓝色进度条
+    //     velFlag = 1;
+    //   } else if (velFlag == 1) {
+    //     vlc.audio.volume = 50;
+    //     $("#ismute" + id).removeClass("mute");
+    //     $("#ismute" + id).addClass("Nomute");
+    //     velFlag = 0;
+    //     $(".vol" + id).css({ width: "37px" }); //音频的蓝色进度条
+    //   }
+    // }
+    // function dateFtt(fmt) {
+    //   //时间格式化
+    //   var d = new Date(fmt);
+    //   var minute = change(d.getMinutes());
+    //   var second = change(d.getSeconds());
+    //   function change(t) {
+    //     if (t < 10) {
+    //       return "0" + t;
+    //     } else {
+    //       return t;
+    //     }
+    //   }
+    //   var time = minute + ":" + second;
+    //   return time;
+    // }
+
+    var app = angular.module("app", ["ngSanitize"]);
+    app.controller("ctrl", function($scope, $interval) {
+      $scope.page = function() {
+        $scope.x = ["mp3/2018.mp3", "mp3/2018.wav", "mp3/success.wav"];
+        ZnbkPlayer();
+        //初始化音频
+      };
+      //判断浏览器的方法
+      var ZnbkPlayer = function() {
+        // $scope.id = "00";
+        // $scope.vlcurl = "mp3/2018.mp3";
+        // var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+        // var isIE_flag = 0; //flag为1的时候，是IE浏览器，否则不是
+        // var isIE =
+        //   userAgent.indexOf("compatible") > -1 &&
+        //   userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器
+        // var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器
+        // var isIE11 =
+        //   userAgent.indexOf("Trident") > -1 &&
+        //   userAgent.indexOf("rv:11.0") > -1;
+        // if (isIE) {
+        //   var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+        //   reIE.test(userAgent);
+          // var fIEVersion = parseFloat(RegExp["$1"]);
+          // if(fIEVersion == 7) {
+          //     alert("7");
+          // } else if(fIEVersion == 8) {
+          //     alert("8");
+          // } else if(fIEVersion == 9) {
+          //     alert("9");
+          // } else if(fIEVersion == 10) {
+          //     alert("10");
+          // } else {
+          //     alert("6");
+          // }
+          //是否是IE7 8 9 10版本
+        //   isIE_flag = 1;
+        // } else if (isEdge) {
+        //   //是否是EDG浏览器
+        //   isIE_flag = 0;
+        // } else if (isIE11) {
+        //   //是否是IE11
+        //   isIE_flag = 1;
+        // } else {
+        //   //是否是其他浏览器
+        //   isIE_flag = 0;
+        // }
+        // ///////  以上是判断浏览器
+        // ///////
+        // ///////
+        // /////// 以下是不同浏览器启用不同方法
+        // if (isIE_flag == 2) {
+        //   //获取页面的ID容器
+        //   for (var i = 0; i < 3; i++) {
+        //     $scope.id = "0" + i;
+        //     addhtml();
+        //   }
+        // } else if (isIE_flag == 1 || isIE_flag ==0) {
+           initAudioPlay(0, 0);
+           initAudioPlay(0, 1);
+           initAudioPlay(0, 2);
+        // }
+      };
+
+      // var addhtml = function() {
+      //   document.getElementById("audio" + $scope.id).innerHTML =
+      //     "<div class='vlcBox'>" +
+      //     "<button id='play" +
+      //     $scope.id +
+      //     "'class='play' onclick='play(id)'></button>" +
+      //     "<button id='stop" +
+      //     $scope.id +
+      //     "' class='stop' onclick='stop(id)'></button>" +
+      //     "<div class='jdtbg'><div class='jdt jdt" +
+      //     $scope.id +
+      //     "'></div></div>" +
+      //     "<div class='time'>" +
+      //     "<span id='StartTime" +
+      //     $scope.id +
+      //     "'>00:00</span><span>/</span>" +
+      //     "<span id='EndTime" +
+      //     $scope.id +
+      //     "'>00:00</span>" +
+      //     "</div>" +
+      //     "<button id='ismute" +
+      //     $scope.id +
+      //     "' class='Nomute' onclick='mute(id)'></button>" +
+      //     "<div class='volbg'><div class='vol vol" +
+      //     $scope.id +
+      //     "'></div></div>" +
+      //     "</div>";
+      // };
+      var initAudioPlay = function(typeIndex, quesIndex) {
+        var id = "#audio" + typeIndex + quesIndex;
+        if ($(id).children().length == 0) {
+          $(id)
+            .children()
+            .remove(); //删除原有节点的内容，再重新添加新的播放器
+          var options = {
+            PlayerName: "aboutplayer" + typeIndex + quesIndex,
+            FootDiv: "playPanelNew" + typeIndex + quesIndex,
+            sJplayerID: "#id_jplayer" + typeIndex + quesIndex,
+            nIndex: typeIndex.toString() + quesIndex.toString(),
+            PlayPath: $scope.x[quesIndex],
+            AppendId: id,
+            sJplayerDocument: "id_PlayControl" + typeIndex + quesIndex,
+            sImagePath: ""
+          };
+
+          $("#id_PlayControl" + typeIndex + quesIndex).MPlayer(options);
+          console.log($scope.x[quesIndex]);
+        }
+      };
+    });
+  </script>
 </html>

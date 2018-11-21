@@ -1,0 +1,676 @@
+﻿/*------------------播放进度条样式----------*/
+/*.panel
+{
+	/*overflow-y:hidden;*/
+	/*height:100%;
+	background-color:#F1F1F1;
+}
+*/
+
+.top-panel
+{
+    float:left;
+    width:200px;
+    margin-top:21px;
+    margin-left:10px;
+}
+.top-panel .paneM
+{
+    width:200px;
+}
+/*进度条*/
+.paneM .progress-wrapper
+{
+    position:relative;
+	width:200px;
+	height:6px;		
+	top:0px;
+	left:0px;
+    background:url(进度背景.png) no-repeat;	
+	/*background:url(cM2yFa1f-2.png) repeat-x 0px -1068px;	*/
+	/*background-color:#CCCCCC;*/
+}
+.paneM .progress-wrapper:hover
+{
+    position:relative;
+	width:200px;
+	height:6px;		
+	top:0px;
+	left:0px;	
+	/*background:url(cM2yFa1f-2.png) repeat-x 0px -1068px;*/	
+	/*cursor:pointer;*/
+}
+
+
+.progress-wrapper .slider-wrapper
+{
+	z-index:97;
+	position:absolute;
+	margin:-4px 0px 0px -4px;	
+	outline-style:none;
+	outline-color:invert;
+	outline-width:medium;
+	width:14px;
+	display:block;
+	/*background:url(cM2yFa1f.png) no-repeat -300px -36px;*/	
+	background:url(kuai1.png) no-repeat center;
+	height:14px;
+	font-size:1px;
+	top:0px;
+	cursor:pointer;		
+	left:0px;
+}
+.progress-wrapper .slider-wrapper:hover
+{
+	background:url(kuai2.png) no-repeat center;
+}
+.slider-wrapperClick
+{
+	z-index:101;
+	position:absolute;
+	margin:-5px 0px 0px -4px;	
+	outline-style:none;
+	outline-color:invert;
+	outline-width:medium;
+	width:18px;
+	display:block;
+	/*background:url(cM2yFa1f.png) no-repeat -300px -36px;*/	
+	background:url(kuai2.png) no-repeat center;
+	height:18px;
+	font-size:1px;
+	top:0px;
+	cursor:pointer;		
+	left:0px;
+}
+.slider-wrapperUnClick
+{
+	z-index:101;
+	position:absolute;
+	margin:-5px 0px 0px -4px;	
+	outline-style:none;
+	outline-color:invert;
+	outline-width:medium;
+	width:18px;
+	display:block;
+	/*background:url(cM2yFa1f.png) no-repeat -300px -36px;*/	
+	background:url(kuai1.png) no-repeat center;
+	height:18px;
+	font-size:1px;
+	top:0px;
+	cursor:pointer;		
+	left:0px;
+}
+.slider-wrapperUnClick:hover
+{
+	background:url(kuai2.png) no-repeat center;
+}
+.progress-wrapper .ui-slider-range
+{	
+	/*background: url(IDyhlaTs-2.png) 0px -316px repeat-x scroll;*/
+	background-color:#74D33A;
+	width: 0;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 20;
+	border: none;
+	font-size: 1px;
+}
+.progress-wrapper .ui-slider-progressbarWeb
+{	
+	/*background: url(cM2yFa1f-2.png) 0px -1080px repeat-x scroll;*/
+	background:url(进度背景.png) no-repeat;
+	width: 200px;
+	height: 6px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	border: none;
+	font-size: 1px;
+}
+/*时间块*/
+.paneM .time
+{
+	position:relative;	
+	cursor:text;
+	float:left;	
+	color:White;	
+	width:100px;
+	text-align:center;
+	top:5px;
+	left:10px;
+}
+.time .curTime
+{
+}
+.time .split
+{
+}
+.time .totalTime
+{
+}
+
+/*音量块*/
+.volume
+{	
+	position:relative;		
+	/*width:150px;*/
+	float:left;
+	/*top:30px;
+	right:30px;*/
+    margin-left:5px;
+    margin-top:16px;
+}
+.volume .mute
+{
+	width:16px;
+	display:block !important;
+	background-repeat:no-repeat;
+	float:left;
+	height:16px;
+	
+	background:url(cM2yFa1f.png) no-repeat;
+}
+.volume .mute:hover
+{
+    cursor:pointer;
+	filter:alpha(opacity=50);
+}
+
+.volume .vol-slider-wrapper
+{
+	width:72px;
+	margin-left:22px;
+    margin-top:6px;
+}
+
+.vol-slider
+{
+    position:relative;
+	border-bottom-style:none;
+	border-right-style:none;
+	margin-top:3px;
+	width:72px;
+	height:3px;
+	border-radius:3px;
+	/*background-color:rgb(204,204,204);*/
+    background:url(volume_backgrond.png) no-repeat;	
+}
+.vol-slider:hover
+{
+    cursor:pointer;
+}
+
+.vol-slider .ui-slider-range
+{
+	position:absolute;
+	background-color:rgb(0,171,221);
+	height:3px;
+	border-radius:3px;
+}
+
+.vol-slider .ui-slider-handle
+{
+	position:absolute;
+	margin:-5px 0px 0px -5px;
+	outline-style:none;
+	width:14px;
+	background:url(kuai1.png) no-repeat;
+	height:14px;
+	top:0px;
+	left:0px;
+}
+.vol-slider .ui-slider-handle:hover
+{
+    background:url(kuai2.png) no-repeat;
+    cursor:pointer;
+}
+/*控制按钮块*/
+.panel .bot-panel
+{
+	position:relative;
+	height:auto;
+	width:100%;
+}
+.bot-panel .ctl-btn
+{
+	position:relative;	
+	/*height:inherit;*/	
+	/*width:50%;*/
+	float:left;
+    /*margin-left:20px;
+    margin-top:15px;*/
+}
+.bot-panel .ctl-YuanWenbtn
+{
+	height:inherit;	
+	width:42%;
+	float:right;
+	position:relative;
+}
+.cls_YuanWenFont{
+    white-space: nowrap;
+    font-family: "微软雅黑 Regular","微软雅黑";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    color: #333;
+    line-height:40px;
+    float:right;
+    margin-top:15px;
+}
+.play-btn
+{
+	margin-bottom:auto;
+	margin-top:auto;
+}
+.play-btn .wg-button
+{
+	position:relative;
+	margin-left:10px;
+	border:1px solid green;			
+	float:left;
+	font-family:@仿宋_GB2312;	
+	font-size:20px;	
+	text-align:center;
+	text-decoration:none !important;	
+	zoom:1;
+	overflow:hidden;		
+}
+.wg-button a
+{
+	color:White;
+}
+
+/*录音播放进度条*/
+.bot-panel .pane-recoder
+{	
+	position:relative;
+	height:inherit;	
+	width:40%;
+	float:left;	
+}
+
+.pane-recoder .progress-wrapper-recoder
+{
+	position:relative;
+	width:60%;	
+	height:8px;	
+	float:left;
+	left:15px;
+	top:9px;
+	background:url(cM2yFa1f.png) repeat-x 0px -1068px;		
+}
+.progress-wrapper-recoder .ui-slider-handle
+{
+	z-index:101;
+	position:absolute;
+	margin:-5px 0px 0px -9px;	
+	outline-style:none;
+	outline-color:invert;
+	outline-width:medium;
+	width:18px;
+	display:block;
+	background:url(cM2yFa1f.png) no-repeat -300px -36px;	
+	height:18px;
+	font-size:1px;
+	top:0px;
+	cursor:pointer;		
+	left:0px;
+}
+.progress-wrapper-recoder .ui-slider-range
+{	
+	/*background: url(IDyhlaTs-2.png) 0px -316px repeat-x scroll;*/
+	background-color:#74D33A;
+	width: 0;
+	height: 6px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 20;
+	border: none;
+	font-size: 1px;
+}
+.progress-wrapper-recoder .ui-slider-progressbar
+{
+	background: url(cM2yFa1f.png) 0px -1080px repeat-x scroll;
+	width: 100%;
+	height: 8px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+	border: none;
+	font-size: 1px;	
+}
+
+/*时间块-录音播放*/
+.pane-recoder .time-recoder
+{
+	position:relative;
+	cursor:text;
+	float:left;	
+	color:White;	
+	width:100px;
+	text-align:center;
+	top:5px;
+	left:10px;
+}
+.time-recoder .curTime
+{
+}
+.time-recoder .split
+{
+}
+.time-recoder .totalTime
+{
+}
+
+/*音量块-录音播放*/
+.pane-recoder .volume-recoder
+{
+	position:relative;		
+	width:100px;
+	float:right;
+	top:6px;
+	right:30px;
+}
+
+.volume-recoder .mute
+{
+	text-indent:-999px;
+	width:16px;
+	display:block !important;
+	background-repeat:no-repeat;
+	float:left;
+	height:16px;
+	background:url(cM2yFa1f.png) no-repeat -96px -384px;/*//mu9.bdstatic.com/player/t/i/cM2yFa1f.png*/
+}
+.volume-recoder .mute:hover
+{
+	filter:alpha(opacity=50);
+}
+
+.volume-recoder .vol-slider-wrapper
+{
+	width:75px;
+	margin-left:22px;
+}
+
+.vol-sliderRecorder
+{
+	position:relative;
+	border-bottom-style:none;
+	border-right-style:none;
+	margin-top:6px;
+	width:100%;
+	height:4px;
+	border-radius:2px;	
+	background:url(cM2yFa1f.png) no-repeat 0px -348px;	
+}
+.vol-sliderRecorder .ui-slider-range
+{
+	position:absolute;
+	line-height:3px;
+	background-color:#fff;
+	height:3px;
+	font-size:1px;
+	top:0px;
+	left:0px;
+	border-radius:5px;
+}
+
+.vol-sliderRecorder .ui-slider-handle
+{
+	position:absolute;
+	margin:-4px 0px 0px -7px;
+	outline-style:none;
+	width:13px;
+	background:url(cM2yFa1f.png) no-repeat -264px -1008px;
+	height:13px;
+	top:0px;
+	left:0px;
+}
+
+.cls_123123{
+    width:200px;
+    height:200px;
+    background:url(YrHmi0ae.png) no-repeat -324px -432px;
+}
+/*1hQVsZPs.png,  cM2yFa1f.png    IDyhlaTs-2.png  YrHmi0ae.png*/
+.wg-buttonBeginPlay
+{
+    width:28px;
+    height:28px;
+    /*background:url(play1.png);*/
+    margin-left:10px;   
+    float:left;
+    color:White;
+    margin-top:10px;
+}
+.wg-buttonBeginPlay:hover
+{
+    width:28px;
+    height:28px;
+    /*background:url(play1.png);*/
+    margin-left:10px;   
+    float:left;
+    color:White;
+    cursor:pointer;
+}
+.wg-buttonBeginAnswer
+{
+    width:40px;
+    height:40px;
+    /*background:url(play2.png);*/
+    margin-left:7px;
+    float:left;
+    color:White;
+}
+.wg-buttonBeginAnswer:hover
+{
+    cursor:pointer;
+}
+.wg-buttonBeginRec
+{
+    width:40px;
+    height:40px;
+    /*background:url(play3.png);*/
+    margin-left:7px;
+    float:left;
+    color:White;
+}
+.wg-buttonBeginRec:hover
+{
+    cursor:pointer;
+}
+.wg-buttonEnd
+{
+    width:22px;
+    height:22px;
+    /*background:url(stop.png);*/
+    margin-left:10px;
+    margin-top:13px;
+    float:left;
+    color:White;
+}
+.wg-buttonEnd:hover
+{
+    width:22px;
+    height:22px;
+    /*background:url(stop.png);*/
+    margin-left:10px;
+    float:left;
+    color:White;
+    margin-top:6px;
+    cursor:pointer;
+    margin-top:13px;
+}
+.wg-buttonOraPlay
+{
+    width:90px;
+    height:30px;
+    margin-left:30px;   
+    float:left;
+    margin-top:5px;
+}
+.wg-buttonOraPlay:hover
+{
+    cursor:pointer;
+}
+.wg-buttonRecPlay
+{
+    width:90px;
+    height:30px;
+    margin-left:30px;   
+    float:left;
+    margin-top:5px;
+}
+.wg-buttonRecPlay:hover
+{
+    cursor:pointer;
+}
+.wg-buttonTryLisPlay
+{
+    width:40px;
+    height:40px;
+    /*background:url(stop.png);*/
+    margin-left:30px;
+    float:left;
+    color:White;
+}
+.wg-buttonTryLisPlay:hover
+{
+    cursor:pointer;
+}
+.cls_showProText
+{
+    white-space: nowrap;
+    font-family: "微软雅黑 Regular","微软雅黑";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    color: #7F8182;
+    margin-left:5px;
+    line-height:48px;
+    height:48px;
+    float:left;
+}
+.cls_ShowButton{
+    width:50px;
+    height:28px;
+    float:right;
+    margin-left:8px;
+    margin-top:15px;
+    margin-right:40px;
+    background:url(displayYes.png);
+}
+.cls_ShowButtonNew{
+    width:50px;
+    height:28px;
+    float:right;
+    margin-left:8px;
+    margin-top:15px;
+    margin-right:40px;
+    background:url(displayYes.png);
+    /*background-image:url(DisplayButton.png);*/
+    position:relative;
+}
+.cls_ShowButtonNewNO{
+    width:50px;
+    height:28px;
+    float:right;
+    margin-left:8px;
+    margin-top:15px;
+    margin-right:40px;
+    background:url(displayNo.png);
+    /*background-image:url(DisplayButton.png);*/
+    position:relative;
+}
+.cls_ON{
+    font-family: "微软雅黑 Regular","微软雅黑";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    color: #FFF;
+    line-height:28px;
+    float:right;
+    /*background-image:url(OnButton.png);*/
+    width:25px;
+    height:28px;
+    text-align:center;
+    display:none;
+}
+.cls_ON:hover{
+    cursor:pointer;
+    /*background-image:url(OnButton_mouseOver.png);*/
+}
+.cls_OFF{
+    font-family: "微软雅黑 Regular","微软雅黑";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    color: #FFF;
+    line-height:30px;
+    float:left;
+    /*background-image:url(OffButton.png);*/
+    cursor:pointer;
+    width:25px;
+    height:28px;
+    text-align:center;
+    display:block;
+}
+.cls_OFF:hover{
+    cursor:pointer;
+    /*background-image:url(OffButton_mouseOver.png);*/
+}
+.cls_DisSelect{
+    position:absolute;
+    top:3px;
+    left:1px;
+    z-index:99;
+}
+.ctl-PingCeFangShi{
+    height:inherit;	
+	width:35%;
+	float:right;
+	position:relative;
+    display:none;
+}
+.cls_PingCeFangShiSellect{
+    float:right;
+    margin-top:20px;
+}
+.cls_PingCeFangShiSellectFont{
+    white-space: nowrap;
+    font-family: "微软雅黑 Regular","微软雅黑";
+    font-weight: 400;
+    font-style: normal;
+    font-size: 13px;
+    color: #333;
+    line-height:40px;
+    float:right;
+    margin-top:10px;
+    margin-right:60px;
+}
+.cls_PingCeFangShiSellectFont:hover{
+    cursor:pointer;
+}
+
+.cls_PyPlayTypeFont{font-family: '微软雅黑 Regular', '微软雅黑';font-weight: 400;font-style: normal;color: #666666;white-space: nowrap;font-size: 13px;line-height: normal;vertical-align:middle;float:left;margin-top:8px;}
+.cls_YYPYButtonSelected{word-wrap: break-word;color: #FFFFFF;font-family: 'Arial Normal', 'Arial';font-weight: 400;font-style: normal;font-size: 13px;text-align: center;line-height: normal;width:70px;height:30px;display:inline-block;background:url(PYButtonBackground.png) no-repeat center;text-align:center;vertical-align:middle;line-height:30px;margin-top:2px;margin-left:2px;}
+.cls_YYPYButtonUnSelected{word-wrap: break-word;cursor: pointer;font-family: 'Arial Normal', 'Arial';font-weight: 400;font-style: normal;font-size: 13px;color: #333333;text-align: center;line-height: normal;visibility: visible;width:70px;height:30px;display:inline-block;/*border-top:1px solid #00567B;border-bottom:1px solid #00567B;border-left:1px solid #00567B;*/text-align:center;vertical-align:middle;line-height:30px;margin-top:2px;margin-left:2px;}
+.cls_YYButtonSelected{word-wrap: break-word;color: #FFFFFF;font-family: 'Arial Normal', 'Arial';font-weight: 400;font-style: normal;font-size: 13px;text-align: center;line-height: normal;width:70px;height:30px;display:inline-block;background:url(PYButtonBackground.png) no-repeat center;text-align:center;vertical-align:middle;line-height:32px;margin-top:2px;}
+.cls_YYButtonUnSelected{word-wrap: break-word;cursor: pointer;font-family: 'Arial Normal', 'Arial';font-weight: 400;font-style: normal;font-size: 13px;color: #333333;text-align: center;line-height: normal;visibility: visible;width:70px;height:30px;display:inline-block;/*border-top:1px solid #00567B;border-bottom:1px solid #00567B;border-right:1px solid #00567B;*/text-align:center;vertical-align:middle;line-height:30px;margin-top:2px;}
+.cls_YYPYButtonUnSelected:hover{color:#FF6600;}
+.cls_YYButtonUnSelected:hover{color:#FF6600;}
+.cls_PYButtonBackground{width:144px;height:34px;background:url(PYBG.png) no-repeat center;float:left;}
+
+.active_PlayControl {
+    height:48px;
+    width:513px;
+    background:url(Player-Base.png) no-repeat;
+}
+

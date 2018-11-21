@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="aud//vlc/vlc-audio.css" />
+    <link rel="stylesheet" href="aud/jplayer/blue.css" />
+    <script src="http://lib.baomitu.com/jquery/1.12.4/jquery.js"></script>
+  </head>
+  <body>
+    <object
+      type="application/x-vlc-plugin"
+      id="vlc"
+      events="false"
+      width="0"
+      height="0"
+      pluginspage="http://www.videolan.org"
+      codebase="http://downloads.videolan.org/pub/videolan/vlc-webplugins/2.0.6/npapi-vlc-2.0.6.tar.xz"
+    >
+      <param name="mrl" value="mp3/success.wav" />
+      <param name="volume" value="50" />
+      <param name="autoplay" value="false" />
+      <param name="loop" value="false" />
+      <param name="fullscreen" value="false" />
+    </object>
+    <div id="audio01"></div>
+    <script src="aud/jplayer/jquery.jplayer.js"></script>
+    <script>
+      $(function() {
+        var url = "mp3/success.wav";
+        var id = "audio01";
+        ZnbkPlayer(url, id);
+      });
+    </script>
+    <script src="js/ZnbkPlayer.js"></script>
+  </body>
+</html>
