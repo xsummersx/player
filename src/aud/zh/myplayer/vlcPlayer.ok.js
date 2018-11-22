@@ -294,6 +294,7 @@ var lastPlayIndex = '';
                     vlc.playlist.clear();
                     var vlcItem = vlc.playlist.add(opts.PlayPath)
                     vlc.playlist.playItem(vlcItem);
+                    vlc.audio.volume = opts.Volume;
                     // vlc.URL = encodeURI(opts.PlayPath);
                     // vlc.playlist.play();
                     
@@ -352,6 +353,7 @@ var lastPlayIndex = '';
                     vlc.playlist.clear();
                     var vlcItem = vlc.playlist.add(opts.PlayPath)
                     vlc.playlist.playItem(vlcItem);
+                    vlc.audio.volume = opts.Volume;
                 }
                 else {//非VLC
                     $(opts.sJplayerID_AnsRec).jPlayer("play", 0);
@@ -480,7 +482,7 @@ var lastPlayIndex = '';
             //进度跳转
             function doSetPos(l_nPos) {
                 if (isIEOrEdge() && MediaType == 'wav') {//IE
-                    var vlc = getVLC(opts.PlayerName);
+                    // var vlc = getVLC(opts.PlayerName);
                     // var totaltime = obj.currentMedia.duration;
                     var vlc = document.getElementById("vlc");
                     var totaltime = vlc.input.time
@@ -557,8 +559,8 @@ var lastPlayIndex = '';
                     var obj = getVLC(opts.PlayerName);
                     // obj.playlist.currentPosition = totalPlayTime * playProgress / 100;
                     //var vlc = document.getElementById("vlc");
-                    //vlc.input.time = totalPlayTime * playProgress / 100;
-                    var currentTime = vlc.input.time//totalPlayTime * playProgress / 100;
+                    vlc.input.time = totalPlayTime * playProgress / 100;
+                    var currentTime = totalPlayTime * playProgress / 100;
                     $(opts.PlayId).jPlayer("playHead", currentTime);
                 } else {
                     //获取当前的播放时间
@@ -1872,7 +1874,7 @@ var lastPlayIndex = '';
                             }
                         }
                         for (var k = 0 ; k < 250; k++) {//先停止其他播放器
-                            var vlcTemp = getVLC('vlc0' + k);//检测播放器ID
+                            var vlcTemp = getVLC('aboutplayerAL' + k);//检测播放器ID
                             var vlcCurTask = getVLC(opts.PlayerName);//当前播放器ID
                             //var vlcCurTask = document.getElementById("vlc");
                             if (vlcTemp !== null) {
