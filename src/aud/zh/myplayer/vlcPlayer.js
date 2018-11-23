@@ -1214,7 +1214,6 @@ var lastPlayIndex = '';
             });
             //单击进度条区域控制播放进度
             $('#id_progress-wrapper' + opts.FootDiv).click(function (e) {
-                if(getVLC(opts.PlayerName).input.State ==3 ){//状态不等于0的时候才可以拖拽
                 if (opts.IsTTS == true || opts.bISPYFlag == true) {
                     return;
                 }
@@ -1237,8 +1236,6 @@ var lastPlayIndex = '';
                     $('#id_slider-wrapper' + opts.FootDiv).css('left', m_x);
                     $('#id_ui-slider-range' + opts.FootDiv).css("width", m_x);
                 }
-            }
-
             });
             $('#id_progress-wrapper' + opts.FootDiv).mouseover(function (e) {
                 if (opts.IsTTS == true || opts.bISPYFlag == true) {
