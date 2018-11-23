@@ -74,7 +74,7 @@
     var app = angular.module("app", []);
     app.controller("ctrl", function($scope, $interval) {
       $scope.page = function() {
-        $scope.x = ["mp3/2018.mp3", "mp3/2018.wav", "mp3/success.wav"];
+        $scope.x = ["http://172.16.41.235:10112/lgRs/CBBE14155DHE10D00BO/2cbd5a55ba152cadc33c913c1e522354.mp3", "http://172.16.41.235:10112/lgRs/CBAE07060DHE10e00eV/2018718202252776530.wav", "http://172.16.41.235:10112/lgRs/CBBC04117DHE10A00VJ/13f917d4b18b6f2bc25af8c7fb46a913.wav"];
         //介于系统中的id有两层循环，这里做了两层循环目的是方便快速加入到系统中
         initAudioPlay(0);
         initAudioPlay(1);

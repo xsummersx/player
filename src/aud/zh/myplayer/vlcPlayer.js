@@ -287,22 +287,25 @@ var lastPlayIndex = '';
 
             //播放
             function doPlay() {
+                if (UrlError) {
+                    znbkxxLayer.loadingClose("音频处理中，请稍后！", 0, 1500, null, function () {
+                        $("#wgbuttonEnd" + opts.FootDiv).trigger("click");
+                    });
+                    return;
+                }
                 if (isIEOrEdge() && MediaType == 'wav') {//IE
+                    PauseLastPalyer(opts.nIndex);
+                    //vlc播放
                     var vlc = getVLC(opts.PlayerName);
                     vlc.playlist.clear();
                     var vlcItem = vlc.playlist.add(opts.PlayPath)
                     vlc.playlist.playItem(vlcItem);
+                    //jplayer模拟播放
                     $(opts.sJplayerID).jPlayer("play");
                     jdtPlay();//进度条相关
                 }
                 else {//非VLC
                     PauseLastPalyer(opts.nIndex);
-                    if (UrlError) {
-                        self_extern_layer.loadingClose("音频处理中，请稍后！", 0, 1500, null, function () {
-                            $("#wgbuttonEnd" + opts.FootDiv).trigger("click");
-                        });
-                        return;
-                    }
                     if (MediaType == 'wav') {
                         $(opts.sJplayerID).jPlayer("setMedia", { wav: opts.PlayPath });
                     }
@@ -312,12 +315,6 @@ var lastPlayIndex = '';
                     else if (MediaType == 'mp3') {
                         $(opts.sJplayerID).jPlayer("setMedia", { mp3: opts.PlayPath });
                     }
-                    //                    else if(MediaType == 'mp4'){
-                    //                        //$(opts.sJplayerID).jPlayer("setMedia",);
-                    //                        //$(opts.sJplayerID).jPlayer( "clearMedia" );
-                    //                        $(opts.sJplayerID).jPlayer("setMedia",{m4v:opts.PlayPath});
-                    //                    }
-                    //$(opts.sJplayerID).jPlayer("play", 0);
                     $(opts.sJplayerID).jPlayer("play");
                 }
             }
@@ -1631,7 +1628,7 @@ var lastPlayIndex = '';
                 $("#id_plyImg_999").show();
                 for (var k = 0 ; k < 200; k++) {//先停止其他播放器
                     var vlcTemp = getVLC('aboutplayer' + k);//检测播放器ID
-                   var vlcCurTask = getVLC(opts.PlayerName);//当前播放器ID
+                    var vlcCurTask = getVLC(opts.PlayerName);//当前播放器ID
                     //var vlcCurTask = document.getElementById("vlc");
                     $("#wgbuttonPlayplayPanelNew" + k).attr("src", opts.sImagePath + "aud/zh/myplayer/play-1.png");
                     if (($("#id_MplayerStateHiddenFlagNewplayPanelNew" + k).val() == 12 || $("#id_MplayerStateHiddenFlagNewplayPanelNew" + k).val() == 13) && opts.FootDiv != ("playPanelNew" + k)) {//tts发音中
@@ -1863,10 +1860,14 @@ var lastPlayIndex = '';
 
             //暂停上一次的播放器
             var PauseLastPalyer = function (currentIndex) {
+                //alert(currentIndex)
                 if (lastPlayIndex != currentIndex && lastPlayIndex.length > 0) {
                     var id = '#id_jplayer' + lastPlayIndex;
                     //$(id).jPlayer('pause');
                     $(id).jPlayer('stop');
+                    //vlc暂停上一次
+                    var vlc = getVLC('vlc' + lastPlayIndex)
+                    vlc.playlist.stop();
                     id = "#wgbuttonPlayplayPanelNew" + lastPlayIndex;
                     $(id).attr('src', opts.sImagePath + 'aud/zh/myplayer/play-1.png');
 

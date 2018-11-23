@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="http://lib.baomitu.com/jquery/1.12.4/jquery.js"></script>
+    <script src="http://lib.baomitu.com/angular.js/1.7.5/angular.js"></script>
+    <!-- jplayer音频插件css -->
+    <link href="aud/zh/myplayer/vlcPlayer.css" rel="stylesheet" />
+    <!-- Vlc音频插件css -->
+    <!-- <link rel="stylesheet" href="aud//vlc/vlc-audio.css" /> -->
+    <!-- jplayer音频播放器插件js -->
+    <script src="aud/zh/BrowerInfo.gxhfx.js"></script>
+    <script src="aud/zh/jquery.jplayer.min.js"></script>
+    <script src="aud/zh/myplayer/vlcPlayer.js"></script>
+  </head>
+  <body>
+    <div ng-app="app">
+      <div ng-controller="ctrl" ng-init="page()">
+         
+      </div>
+    </div>
+  </body>
+  <script>
+    var app = angular.module("app", []);
+    app.controller("ctrl", function($scope, $interval) {
+      $scope.page = function() {
+        $scope.x = ["mp3/2018.mp3", "mp3/2018.wav", "mp3/success.wav"];
+        //介于系统中的id有两层循环，这里做了两层循环目的是方便快速加入到系统中
+        initAudioPlay(0);
+        initAudioPlay(1);
+        initAudioPlay(2);
+      };
+      //初始化音频
+      var initAudioPlay = function(bIndex) {
+        var id = "#audio" + bIndex;
+        if ($(id).children().length == 0) {
+          $(id)
+            .children()
+            .remove(); //删除原有节点的内容，再重新添加新的播放器
+          var options = {
+            PlayerName: "vlc" + bIndex,
+            FootDiv: "playPanelNew" + bIndex,
+            sJplayerID: "#id_jplayer" + bIndex,
+            nIndex: bIndex.toString(),
+            PlayPath: $scope.x[bIndex],
+            AppendId: id,
+            sJplayerDocument: "id_PlayControl"+bIndex,
+            sImagePath: ""
+          };
+
+          $("#id_PlayControl" + bIndex).MPlayer(options);
+          //console.log($scope.x[quesIndex]);
+        }
+      };
+    });
+  </script>
+</html>
