@@ -467,7 +467,7 @@ var lastPlayIndex = '';
                     // vlc.playlist.stop();
                     //var vlc = document.getElementById("vlc");
                     vlc.playlist.stop();//手动重置播放
-                    //$(opts.sJplayerID).jPlayer("stop");
+                    $(opts.sJplayerID).jPlayer("stop");
                     //jdtStop();//进度条相关
                     //doSetPos(0);
                 }
@@ -1892,23 +1892,27 @@ var lastPlayIndex = '';
             var PauseLastPalyer = function (currentIndex) {
                 //alert(currentIndex)
                 if (lastPlayIndex != currentIndex && lastPlayIndex.length > 0) {
-                    if (isIEOrEdge() == true && MediaType == 'wav') {
+                    //if (isIEOrEdge() && MediaType == 'wav') {
                         var vlc = getVLC('vlc' + lastPlayIndex)
                         vlc.playlist.stop();
-                        //var id = '#id_jplayer' + lastPlayIndex;
-                        //$(id).jPlayer('stop');
+                        var id = '#id_jplayer' + lastPlayIndex;
+                        $(id).jPlayer('stop');
 
                         $('#id_slider-wrapperplayPanelNew' + lastPlayIndex).css('left', 0);
                         $('#id_ui-slider-rangeplayPanelNew' + lastPlayIndex).css("width", 0);
                         $("#id_showProTextplayPanelNew" + lastPlayIndex).text('00:00:00 / ' + parseTime(vlc.input.length));
-                    } else {
-                        var id = '#id_jplayer' + lastPlayIndex;
-                        $(id).jPlayer('stop');
                         id = "#wgbuttonPlayplayPanelNew" + lastPlayIndex;
                         $(id).attr('src', opts.sImagePath + 'aud/zh/myplayer/play-1.png');
                         id = "#id_MplayerStateHiddenFlagNewplayPanelNew" + lastPlayIndex;
                         $(id).attr('value', 23);
-                    }
+                    //} else {
+                    //    var id = '#id_jplayer' + lastPlayIndex;
+                    //    $(id).jPlayer('stop');
+                    //    id = "#wgbuttonPlayplayPanelNew" + lastPlayIndex;
+                    //    $(id).attr('src', opts.sImagePath + 'aud/zh/myplayer/play-1.png');
+                    //    id = "#id_MplayerStateHiddenFlagNewplayPanelNew" + lastPlayIndex;
+                    //    $(id).attr('value', 23);
+                    //}
                     //$('#id_slider-wrapper' + lastPlayIndex).css('left', 0);
                     //$('#id_ui-slider-range' + lastPlayIndex).css("width", 0);
                     lastPlayIndex = currentIndex;
