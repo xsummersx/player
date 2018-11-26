@@ -316,6 +316,7 @@ var lastPlayIndex = '';
                         $(opts.sJplayerID).jPlayer("setMedia", { mp3: opts.PlayPath });
                     }
                     $(opts.sJplayerID).jPlayer("play");
+                    PauseLastPalyer(opts.nIndex);
                 }
             }
 
@@ -425,6 +426,7 @@ var lastPlayIndex = '';
                     $(opts.sJplayerID).jPlayer("pause");
                     if ($("#id_MplayerStateHiddenFlagNew" + opts.FootDiv).val() == 23 || $("#id_MplayerStateHiddenFlagNew" + opts.FootDiv).val() == 33) {
                         $(opts.sJplayerID).jPlayer("play");
+                        PauseLastPalyer(opts.nIndex);
                     }
                 }
             }
@@ -1175,67 +1177,78 @@ var lastPlayIndex = '';
             //            });
 
             //拖动滑块设置进度
-            $('#id_slider-wrapper' + opts.FootDiv).mousedown(function (e) {
-                if (opts.IsTTS == true || opts.bISPYFlag == true) {
-                    return;
-                }
-                opts.move = true;
-                g_bIsPrgsWrapperMouseDown = true;
-                opts._x = e.pageX - parseInt($(this).css('left'));
-                $(this).removeClass().addClass("slider-wrapperClick");
-            });
-
-            $(document).mousemove(function (e) {
-                if (opts.move) {
-                    var x = e.pageX - opts._x;   //移动时根据鼠标位置计算控件左上角的绝对位置
-                    slidePostion = x;
-                    opts.lpos = x;
-                    if (x >= 0 && x <= parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width'))) {
-                        $('#id_slider-wrapper' + opts.FootDiv).css('left', x);
-                        $('#id_ui-slider-range' + opts.FootDiv).css("width", x);
+            if (isIEOrEdge() && MediaType == 'wav'){
+                //对ie下的wav格式不操作进度条拖拽
+            }else{
+                $('#id_slider-wrapper' + opts.FootDiv).mousedown(function (e) {
+                    if (opts.IsTTS == true || opts.bISPYFlag == true) {
+                        return;
                     }
-                }
-            }).mouseup(function () {
-                if (opts.move) {
-                    if (opts.bISPYFlag == false) {
-                        doSetPos(opts.lpos / parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width')) * 100); //设置播放进度
+                    opts.move = true;
+                    g_bIsPrgsWrapperMouseDown = true;
+                    opts._x = e.pageX - parseInt($(this).css('left'));
+                    $(this).removeClass().addClass("slider-wrapperClick");
+                });
+
+                $(document).mousemove(function (e) {
+                    if (opts.move) {
+                        var x = e.pageX - opts._x;   //移动时根据鼠标位置计算控件左上角的绝对位置
+                        slidePostion = x;
+                        opts.lpos = x;
+                        if (x >= 0 && x <= parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width'))) {
+                            $('#id_slider-wrapper' + opts.FootDiv).css('left', x);
+                            $('#id_ui-slider-range' + opts.FootDiv).css("width", x);
+                        }
                     }
-                    else {
-                        doSetPosPY(opts.lpos / parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width')) * 100); //设置播放进度
+                }).mouseup(function () {
+                    if (opts.move) {
+                        if (opts.bISPYFlag == false) {
+                            doSetPos(opts.lpos / parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width')) * 100); //设置播放进度
+                        }
+                        else {
+                            doSetPosPY(opts.lpos / parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width')) * 100); //设置播放进度
+                        }
+
+                        setPlayProgress(opts.lpos / parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width')) * 100);//设置播放进度
+
+                        $("#id_slider-wrapper" + opts.FootDiv).removeClass().addClass("slider-wrapperUnClick");
+                        g_bIsPrgsWrapperMouseDown = false;
+
+                        opts.move = false;
                     }
-
-                    setPlayProgress(opts.lpos / parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width')) * 100);//设置播放进度
-
-                    $("#id_slider-wrapper" + opts.FootDiv).removeClass().addClass("slider-wrapperUnClick");
-                    g_bIsPrgsWrapperMouseDown = false;
-
-                    opts.move = false;
-                }
-            });
+                });
+            }
             //单击进度条区域控制播放进度
             $('#id_progress-wrapper' + opts.FootDiv).click(function (e) {
-                if (opts.IsTTS == true || opts.bISPYFlag == true) {
-                    return;
-                }
-                var m_x = e.pageX - $(this).offset().left;
-                slidePostion = m_x;
-                opts.lpos = m_x;
-
-                if (m_x >= 0 && m_x <= parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width'))) {
-                    //计算单击进度条后当前播放的音频位置 
-
-                    if (opts.bISPYFlag == false) {
-                        doSetPos(opts.lpos / parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width')) * 100); //设置播放进度
+                //if (isIEOrEdge() && MediaType == 'wav') {//IE
+                if (isIEOrEdge() && MediaType == 'wav'){
+                        //对ie下的wav格式不操作进度条拖拽
+                }else{
+                    //if(getVLC(opts.PlayerName).input.State ==3 ){//状态不等于0的时候才可以拖拽
+                    if (opts.IsTTS == true || opts.bISPYFlag == true) {
+                        return;
                     }
-                    else {
-                        doSetPosPY(opts.lpos / parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width')) * 100); //设置播放进度
+                    var m_x = e.pageX - $(this).offset().left;
+                    slidePostion = m_x;
+                    opts.lpos = m_x;
+
+                    if (m_x >= 0 && m_x <= parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width'))) {
+                        //计算单击进度条后当前播放的音频位置 
+
+                        if (opts.bISPYFlag == false) {
+                            doSetPos(opts.lpos / parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width')) * 100); //设置播放进度
+                        }
+                        else {
+                            doSetPosPY(opts.lpos / parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width')) * 100); //设置播放进度
+                        }
+
+                        setPlayProgress(opts.lpos / parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width')) * 100);//设置播放进度
+
+                        $('#id_slider-wrapper' + opts.FootDiv).css('left', m_x);
+                        $('#id_ui-slider-range' + opts.FootDiv).css("width", m_x);
                     }
-
-                    setPlayProgress(opts.lpos / parseInt($('#id_progress-wrapper' + opts.FootDiv).css('width')) * 100);//设置播放进度
-
-                    $('#id_slider-wrapper' + opts.FootDiv).css('left', m_x);
-                    $('#id_ui-slider-range' + opts.FootDiv).css("width", m_x);
                 }
+
             });
             $('#id_progress-wrapper' + opts.FootDiv).mouseover(function (e) {
                 if (opts.IsTTS == true || opts.bISPYFlag == true) {
@@ -1261,14 +1274,19 @@ var lastPlayIndex = '';
             });
             $(document).mousemove(function (e) {
                 if (mvf) {
+                    
                     var vx = e.pageX - v_x;
                     if (vx >= 0 && vx <= parseInt($('#id_vol-slider' + opts.FootDiv).css('width'))) {
                         $('#id_ui-slider-handle-vol' + opts.FootDiv).css('left', vx);
                         $('#id_ui-slider-range-vol' + opts.FootDiv).css('width', vx);
                         //设置vlc的音量
-                        var vlc = getVLC(opts.PlayerName);
-                        vlc.audio.volume = 100 * parseFloat(vx / parseInt($('#id_vol-slider' + opts.FootDiv).css('width')));
-                        $(opts.sJplayerID).jPlayer("volume", parseFloat(opts.Volume)/100);              //设置音量大小
+                        if (isIEOrEdge() && MediaType == 'wav') {//ie
+                            var vlc = getVLC(opts.PlayerName);
+                            vlc.audio.volume = 100 * parseFloat(vx / parseInt($('#id_vol-slider' + opts.FootDiv).css('width')));
+                        }
+                        $(opts.sJplayerID).jPlayer("volume", vx / 100);
+                        
+                                   //设置音量大小
                         //由长度比例计算设置的音量的大小
                     }
                 }
@@ -1283,11 +1301,13 @@ var lastPlayIndex = '';
                 var vlc = getVLC(opts.PlayerName);
                 var offset = e.pageX - $('#id_vol-slider' + opts.FootDiv).offset().left;
                 if (offset <= 0) {
-                    $('#id_mute' + opts.FootDiv).css("background", "url(" + opts.sImagePath + "aud/zh/myplayer/1hQVsZPs.png) no-repeat");
+                    //音量喇叭的样式不准备改变
+                    //$('#id_mute' + opts.FootDiv).css("background", "url(" + opts.sImagePath + "aud/zh/myplayer/1hQVsZPs.png) no-repeat");
                     isMute = true;
                     if(isIEOrEdge() && MediaType == 'wav'){
                          vlc.audio.volume = 0;//设置VLC为静音
                     }
+                    $(opts.sJplayerID).jPlayer("volume", 0);
                 }
                 else {
                     $('#id_mute' + opts.FootDiv).css('background', 'url(" + opts.sImagePath + "aud/zh/myplayer/cM2yFa1f.png) no-repeat');
@@ -1297,9 +1317,13 @@ var lastPlayIndex = '';
                 if (offset >= 0 && offset <= parseInt($('#id_vol-slider' + opts.FootDiv).css('width'))) {
                     $('#id_ui-slider-handle-vol' + opts.FootDiv).css('left', offset);
                     $('#id_ui-slider-range-vol' + opts.FootDiv).css('width', offset);
+                    //音量喇叭的样式不准备添加
+                    //$('#id_mute' + opts.FootDiv).css('background', 'url(" + opts.sImagePath + "aud/zh/myplayer/cM2yFa1f.png) no-repeat');
                     //设置vlc的音量
-                    vlc.audio.volume = 100 * parseFloat(offset / parseInt($('#id_vol-slider' + opts.FootDiv).css('width')));
-                    $(opts.sJplayerID).jPlayer("volume", parseFloat(opts.Volume) / 100);
+                    if (isIEOrEdge() && MediaType == 'wav') {
+                        vlc.audio.volume = 100 * parseFloat(offset / parseInt($('#id_vol-slider' + opts.FootDiv).css('width')));
+                    }
+                    $(opts.sJplayerID).jPlayer("volume", offset / 100);
                     //由长度比例计算设置的音量的大小
                 }
             });
@@ -1872,6 +1896,10 @@ var lastPlayIndex = '';
                     }else{
                         var id = '#id_jplayer' + lastPlayIndex;
                         $(id).jPlayer('stop');
+                        id = "#wgbuttonPlayplayPanelNew" + lastPlayIndex;
+                        $(id).attr('src', opts.sImagePath + 'aud/zh/myplayer/play-1.png');
+                        id = "#id_MplayerStateHiddenFlagNewplayPanelNew" + lastPlayIndex;
+                        $(id).attr('value', 23);
                     }
                     //$('#id_slider-wrapper' + lastPlayIndex).css('left', 0);
                     //$('#id_ui-slider-range' + lastPlayIndex).css("width", 0);

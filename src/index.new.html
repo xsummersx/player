@@ -42,7 +42,33 @@
             <param name='toolbar' value='false' />
             <param name='fullscreen' value='false' />
         </object> -->
-       
+        <!-- <object type='application/x-vlc-plugin' id='pfvlc0' events='True' classid='clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921' class="vd-screen">
+          <param name='mrl' value='' />
+          <param name='volume' value='80' />
+          <param name='autoplay' value='false' />
+          <param name='mute' value='true' />
+          <param name='loop' value='false' />
+          <param name='toolbar' value='false' />
+          <param name='fullscreen' value='false' />
+      </object>
+      <object type='application/x-vlc-plugin' id='pfvlc1' events='True' classid='clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921' class="vd-screen">
+        <param name='mrl' value='' />
+        <param name='volume' value='80' />
+        <param name='autoplay' value='false' />
+        <param name='mute' value='true' />
+        <param name='loop' value='false' />
+        <param name='toolbar' value='false' />
+        <param name='fullscreen' value='false' />
+    </object>
+    <object type='application/x-vlc-plugin' id='pfvlc2' events='True' classid='clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921' class="vd-screen">
+      <param name='mrl' value='' />
+      <param name='volume' value='80' />
+      <param name='autoplay' value='false' />
+      <param name='mute' value='true' />
+      <param name='loop' value='false' />
+      <param name='toolbar' value='false' />
+      <param name='fullscreen' value='false' />
+  </object> -->
         <div id="id_mediaPlayer_quesArticle0" class="dv-audio"></div>
         <div id="id_mediaPlayer_quesArticle1" class="dv-audio"></div>
         <div id="id_mediaPlayer_quesArticle2" class="dv-audio"></div>
@@ -272,7 +298,7 @@
             .remove();
 
           var options = {
-            PlayerName: "aboutplayer" + CurrentIndex,
+            PlayerName: "pfvlc" + CurrentIndex,
             FootDiv: "playPanelNew" + CurrentIndex,
             sJplayerID: "#id_jplayer" + CurrentIndex,
             nIndex: CurrentIndex,
